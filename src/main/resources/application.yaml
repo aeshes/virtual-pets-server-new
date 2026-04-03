@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: virtual-pets-server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=virtualpets
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: Tes666ter
+  liquibase:
+    default-schema: virtualpets
+    change-log: classpath:db/changelog/db.changelog-master.yaml

@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: 202604/schema.yaml
+      relativeToChangelogFile: true
