@@ -6,6 +6,22 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: Tes666ter
+  jpa:
+    properties:
+      hibernate:
+        globally_quoted_identifiers: 'true'
+        default_schema: virtualpets
+        show_sql: 'true'
+        max_fetch_depth: 3
+        jdbc:
+          fetch_size: 50
+          batch_size: 10
+        use_nationalized_character_data: 'true'
+        connection:
+          CharSet: utf8
+          characterEncoding: utf8
+          useUnicode: 'true'
+        implicit_naming_strategy: default
   liquibase:
     default-schema: virtualpets
     change-log: classpath:db/changelog/db.changelog-master.yaml
