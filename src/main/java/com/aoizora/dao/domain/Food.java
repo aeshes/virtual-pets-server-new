@@ -15,7 +15,7 @@ public class Food implements Serializable {
     @Enumerated(EnumType.STRING)
     private FoodId id;
 
-    @Column(name = "refrigeratorId")
+    @Column(name = "refrigerator_id")
     private int refrigeratorLevel;
 
     private int refrigeratorOrder;
