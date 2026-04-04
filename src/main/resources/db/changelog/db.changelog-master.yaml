@@ -8,3 +8,6 @@ databaseChangeLog:
   - include:
       file: 04-04-2026/schema.yaml
       relativeToChangelogFile: true
+  - include:
+      file: V3/schema.yaml
+      relativeToChangelogFile: true
