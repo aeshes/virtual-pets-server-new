@@ -1,6 +1,6 @@
 package com.aoizora.config;
 
-import com.aoizora.dao.LevelDAO;
+import com.aoizora.dao.LevelDao;
 import com.aoizora.dao.domain.Level;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -11,9 +11,9 @@ import java.util.Optional;
 @Component
 public class TestRunner {
 
-    private final LevelDAO dao;
+    private final LevelDao dao;
 
-    public TestRunner(LevelDAO dao) {
+    public TestRunner(LevelDao dao) {
         this.dao = dao;
     }
 
