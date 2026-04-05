@@ -10,6 +10,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class RoomDaoImpl implements RoomDao {
     private EntityManager em;
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Room> findByPetId(Integer petId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Room> query = cb.createQuery(Room.class);
