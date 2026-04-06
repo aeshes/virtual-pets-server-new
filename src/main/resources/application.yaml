@@ -25,3 +25,6 @@ spring:
   liquibase:
     default-schema: virtualpets
     change-log: classpath:db/changelog/db.changelog-master.yaml
+
+application:
+  version: 0.1
