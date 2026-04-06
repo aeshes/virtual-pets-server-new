@@ -1,6 +1,6 @@
 package com.aoizora.converter;
 
-import com.aoizora.api.BookDTO;
+import com.aoizora.api.dto.BookDTO;
 import com.aoizora.dao.domain.Book;
 import org.junit.jupiter.api.Test;
 

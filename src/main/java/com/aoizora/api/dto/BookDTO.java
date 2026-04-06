@@ -1,4 +1,4 @@
-package com.aoizora.api;
+package com.aoizora.api.dto;
 
 import java.util.Objects;
 

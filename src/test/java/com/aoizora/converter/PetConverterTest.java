@@ -1,6 +1,6 @@
 package com.aoizora.converter;
 
-import com.aoizora.api.PetDTO;
+import com.aoizora.api.dto.PetDTO;
 import com.aoizora.dao.domain.Pet;
 import com.aoizora.dao.domain.PetType;
 import org.junit.jupiter.params.ParameterizedTest;

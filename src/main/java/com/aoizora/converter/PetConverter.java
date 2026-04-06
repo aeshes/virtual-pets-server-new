@@ -1,6 +1,6 @@
 package com.aoizora.converter;
 
-import com.aoizora.api.PetDTO;
+import com.aoizora.api.dto.PetDTO;
 import com.aoizora.dao.domain.Pet;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
