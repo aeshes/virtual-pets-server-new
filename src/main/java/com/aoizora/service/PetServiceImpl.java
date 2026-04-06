@@ -1,6 +1,7 @@
 package com.aoizora.service;
 
 import com.aoizora.api.dto.CreatePetRequest;
+import com.aoizora.api.dto.DrinkRequest;
 import com.aoizora.dao.LevelDao;
 import com.aoizora.dao.PetDao;
 import com.aoizora.dao.RoomDao;
@@ -59,5 +60,10 @@ public class PetServiceImpl implements PetService {
         } else {
             throw new PetNotFoundException(petId);
         }
+    }
+
+    @Override
+    public void drink(Integer userId, DrinkRequest request) throws ServiceException {
+
     }
 }

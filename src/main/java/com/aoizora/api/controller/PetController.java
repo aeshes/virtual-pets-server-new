@@ -1,6 +1,7 @@
 package com.aoizora.api.controller;
 
 import com.aoizora.api.dto.CreatePetRequest;
+import com.aoizora.api.dto.DrinkRequest;
 import com.aoizora.config.security.UserDetailsImpl;
 import com.aoizora.service.PetService;
 import com.aoizora.service.exception.ServiceException;
@@ -27,8 +28,14 @@ public class PetController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "delete/{petId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{petId}", method = RequestMethod.DELETE)
     public void delete(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable @Min(1) Integer petId) throws ServiceException {
         petService.delete(userDetails.getUserId(), petId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/drink", method = RequestMethod.POST)
+    public void drink(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody @Valid DrinkRequest request) throws ServiceException {
+        petService.drink(userDetails.getUserId(), request);
     }
 }
