@@ -55,4 +55,9 @@ public class PetDaoImpl implements PetDao {
 
         return Optional.ofNullable(pet);
     }
+
+    @Override
+    public void delete(Pet pet) {
+        em.remove(pet);
+    }
 }

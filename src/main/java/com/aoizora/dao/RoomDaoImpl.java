@@ -10,11 +10,13 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class RoomDaoImpl implements RoomDao {
 
     @PersistenceContext
@@ -33,5 +35,10 @@ public class RoomDaoImpl implements RoomDao {
         List<Room> rooms = q.getResultList();
 
         return DataAccessUtils.optionalResult(rooms);
+    }
+
+    @Override
+    public void delete(Room room) {
+        em.remove(room);
     }
 }

@@ -12,4 +12,6 @@ public interface PetDao {
     Optional<Pet> findByIdWithJournalEntriesAndAchievements(Integer id);
 
     Optional<Pet> findByIdWithFullFoods(Integer id);
+
+    void delete(Pet pet);
 }

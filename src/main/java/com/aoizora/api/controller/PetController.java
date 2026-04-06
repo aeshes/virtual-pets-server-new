@@ -1,0 +1,26 @@
+package com.aoizora.api.controller;
+
+import com.aoizora.config.security.UserDetailsImpl;
+import com.aoizora.service.PetService;
+import com.aoizora.service.exception.ServiceException;
+import jakarta.validation.constraints.Min;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1/pet")
+public class PetController {
+
+    private final PetService petService;
+
+    public PetController(PetService petService) {
+        this.petService = petService;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "delete/{petId}", method = RequestMethod.DELETE)
+    public void delete(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable @Min(1) Integer petId) throws ServiceException {
+        petService.delete(userDetails.getUserId(), petId);
+    }
+}

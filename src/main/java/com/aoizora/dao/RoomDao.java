@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface RoomDao {
     Optional<Room> findByPetId(Integer petId);
+
+    void delete(Room room);
 }
