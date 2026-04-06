@@ -13,5 +13,7 @@ public interface PetDao {
 
     Optional<Pet> findByIdWithFullFoods(Integer id);
 
+    void save(Pet pet);
+
     void delete(Pet pet);
 }

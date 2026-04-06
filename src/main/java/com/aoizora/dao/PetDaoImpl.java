@@ -57,6 +57,11 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
+    public void save(Pet pet) {
+        em.persist(pet);
+    }
+
+    @Override
     public void delete(Pet pet) {
         em.remove(pet);
     }

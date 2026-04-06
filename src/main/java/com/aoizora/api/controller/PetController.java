@@ -1,8 +1,10 @@
 package com.aoizora.api.controller;
 
+import com.aoizora.api.dto.CreatePetRequest;
 import com.aoizora.config.security.UserDetailsImpl;
 import com.aoizora.service.PetService;
 import com.aoizora.service.exception.ServiceException;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +18,12 @@ public class PetController {
 
     public PetController(PetService petService) {
         this.petService = petService;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public void create(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody @Valid CreatePetRequest request) throws ServiceException {
+        petService.create(userDetails.getUserId(), request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
