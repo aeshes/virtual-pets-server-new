@@ -6,7 +6,7 @@ import com.aoizora.dao.LevelDao;
 import com.aoizora.dao.PetDao;
 import com.aoizora.dao.RoomDao;
 import com.aoizora.dao.UserDao;
-import com.aoizora.dao.domain.Pet;
+import com.aoizora.dao.domain.*;
 import com.aoizora.service.exception.PetNotFoundException;
 import com.aoizora.service.exception.ServiceException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.OffsetDateTime;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PetServiceImpl implements PetService {
@@ -64,6 +66,55 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public void drink(Integer userId, DrinkRequest request) throws ServiceException {
+        Pet pet = petDao.findByIdWithDrinksAndJournalEntriesAndAchievements(request.petId()).orElseThrow();
+        Map<DrinkId, PetDrink> drinks = pet.getDrinks();
+        PetDrink petDrink = drinks.get(request.drinkId());
+        petDrink.setDrinkCount(petDrink.getDrinkCount() - 1);
+        pet.setDrink(100);
 
+        if (pet.getJournalEntries().get(JournalEntryId.BUILD_REFRIGERATOR) == null) {
+            PetJournalEntry newPetJournalEntry = new PetJournalEntry();
+            newPetJournalEntry.setCreatedAt(OffsetDateTime.now(clock));
+            newPetJournalEntry.setPet(pet);
+            newPetJournalEntry.setJournalEntry(JournalEntryId.BUILD_REFRIGERATOR);
+            newPetJournalEntry.setReaded(false);
+            pet.getJournalEntries().put(newPetJournalEntry.getJournalEntry(), newPetJournalEntry);
+        }
+
+        if (pet.getDrinkCount() < Integer.MAX_VALUE)
+            pet.setDrinkCount(pet.getDrinkCount() + 1);
+        if (pet.getDrinkCount() == 1)
+            addAchievementIfNot(pet, AchievementId.DRINK_1);
+        if (pet.getDrinkCount() == 10)
+            addAchievementIfNot(pet, AchievementId.DRINK_10);
+        if (pet.getDrinkCount() == 100)
+            addAchievementIfNot(pet, AchievementId.DRINK_100);
+
+        addExperience(pet, 1);
+    }
+
+    @Override
+    public void addExperience(Pet pet, Integer exp) {
+        int nextExperience = pet.getExperience() + exp;
+        Optional<Level> nextLevelOpt = levelDao.findById(pet.getLevel().getId() + 1);
+        nextLevelOpt.ifPresentOrElse((nextLevel) -> {
+            pet.setExperience(nextExperience);
+            if (nextExperience >= nextLevel.getExperience()) {
+                pet.setLevel(nextLevel);
+            }
+        }, () -> {
+            Level lastLevel = levelDao.findById(pet.getLevel().getId()).orElseThrow();
+            pet.setExperience(Math.min(nextExperience, lastLevel.getExperience()));
+        });
+    }
+
+    @Override
+    public void addAchievementIfNot(Pet pet, AchievementId achievement) {
+        if (!pet.getAchievements().containsKey(achievement)) {
+            PetAchievement petAchievement = new PetAchievement();
+            petAchievement.setPet(pet);
+            petAchievement.setAchievement(achievement);
+            pet.getAchievements().put(achievement, petAchievement);
+        }
     }
 }

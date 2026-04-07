@@ -48,10 +48,21 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Pet> findByIdWithFullFoods(Integer id) {
         Pet pet = em.find(Pet.class, id, Map.of(
                 "jakarta.persistence.fetchgraph",
                 em.getEntityGraph("pet.foods")));
+
+        return Optional.ofNullable(pet);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Pet> findByIdWithDrinksAndJournalEntriesAndAchievements(Integer id) {
+        Pet pet = em.find(Pet.class, id, Map.of(
+                "jakarta.persistence.fetchgraph",
+                em.getEntityGraph("pet.drinksAndJournalEntriesAndAchievements")));
 
         return Optional.ofNullable(pet);
     }
