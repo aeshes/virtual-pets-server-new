@@ -4,10 +4,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties("application")
+@ConfigurationProperties("virtualpets")
 public class ApplicationSettings {
 
     private String version;
+
+    private String appName;
 
     private Server server;
 
@@ -37,5 +39,13 @@ public class ApplicationSettings {
 
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

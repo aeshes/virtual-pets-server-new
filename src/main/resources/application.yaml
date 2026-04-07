@@ -25,6 +25,12 @@ spring:
   liquibase:
     default-schema: virtualpets
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  messages:
+    basename: messages
+    encoding: UTF-8
+    cache-duration: 3600
+    fallback-to-system-locale: true
 
-application:
+virtualpets:
   version: 0.1
+  appName: virtual pets
