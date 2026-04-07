@@ -13,8 +13,40 @@ public class ApplicationSettings {
 
     private Server server;
 
+    private Play play;
+
+    public Play getPlay() {
+        return play;
+    }
+
+    public void setPlay(Play play) {
+        this.play = play;
+    }
+
     public static class Server {
         private String url;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+    }
+
+    public static class Play {
+        private String message;
+
+        private String url;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
 
         public String getUrl() {
             return url;

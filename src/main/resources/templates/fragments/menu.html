@@ -1,0 +1,7 @@
+<div class = "menu" xmlns:th = "http://www.thymeleaf.org" th:fragment = "menu">
+    <ul>
+        <li><a th:href = "@{/site/home}" th:text = "#{virtualpets.home}"></a></li>
+        <li><a th:href = "${menuPlayUrl}" th:text = "#{virtualpets.play.message}"></a></li>
+        <li><a th:href = "@{/site/information}" th:text = "#{virtualpets.information}"></a></li>
+    </ul>
+</div>

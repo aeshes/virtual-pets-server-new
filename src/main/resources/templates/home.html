@@ -2,10 +2,24 @@
 <html xmlns:th = "http://www.thymeleaf.org" th:lang = "${#locale.toLanguageTag()}">
     <head>
         <title>Home</title>
+        <link rel = "stylesheet" th:href = "@{css/style.css}" type = "text/css" media = "screen" />
     </head>
     <body>
         <div th:replace = "~{fragments/header :: header}">
             Шапка сайта
+        </div>
+        <div th:replace = "~{fragments/menu :: menu}">
+            Меню сайта
+        </div>
+        <div class = "body">
+            <div id = "main">
+                <th:block th:utext = "#{virtualpets.welcome}">
+                    <p>Текст приветственного сообщения</p>
+                </th:block>
+            </div>
+        </div>
+        <div th:replace = "~{fragments/footer :: footer}">
+            Подвал сайта
         </div>
     </body>
 </html>

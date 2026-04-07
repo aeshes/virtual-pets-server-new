@@ -34,3 +34,5 @@ spring:
 virtualpets:
   version: 0.1
   appName: virtual pets
+  play:
+    url: test
