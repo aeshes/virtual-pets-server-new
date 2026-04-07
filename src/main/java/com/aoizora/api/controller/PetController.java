@@ -2,6 +2,7 @@ package com.aoizora.api.controller;
 
 import com.aoizora.api.dto.CreatePetRequest;
 import com.aoizora.api.dto.DrinkRequest;
+import com.aoizora.api.dto.SatietyRequest;
 import com.aoizora.config.security.UserDetailsImpl;
 import com.aoizora.service.PetService;
 import com.aoizora.service.exception.ServiceException;
@@ -37,5 +38,11 @@ public class PetController {
     @RequestMapping(value = "/drink", method = RequestMethod.POST)
     public void drink(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody @Valid DrinkRequest request) throws ServiceException {
         petService.drink(userDetails.getUserId(), request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/satiety", method = RequestMethod.POST)
+    public void eat(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody @Valid SatietyRequest request) throws ServiceException {
+        petService.satiety(userDetails.getUserId(), request);
     }
 }

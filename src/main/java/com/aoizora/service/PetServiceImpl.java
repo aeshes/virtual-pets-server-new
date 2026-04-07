@@ -2,10 +2,8 @@ package com.aoizora.service;
 
 import com.aoizora.api.dto.CreatePetRequest;
 import com.aoizora.api.dto.DrinkRequest;
-import com.aoizora.dao.LevelDao;
-import com.aoizora.dao.PetDao;
-import com.aoizora.dao.RoomDao;
-import com.aoizora.dao.UserDao;
+import com.aoizora.api.dto.SatietyRequest;
+import com.aoizora.dao.*;
 import com.aoizora.dao.domain.*;
 import com.aoizora.service.exception.PetNotFoundException;
 import com.aoizora.service.exception.ServiceException;
@@ -25,14 +23,16 @@ public class PetServiceImpl implements PetService {
     private final RoomDao roomDao;
     private final LevelDao levelDao;
     private final UserDao userDao;
+    private final PetFoodDao petFoodDao;
 
     private final Clock clock;
 
-    public PetServiceImpl(PetDao petDao, RoomDao roomDao, LevelDao levelDao, UserDao userDao, Clock clock) {
+    public PetServiceImpl(PetDao petDao, RoomDao roomDao, LevelDao levelDao, UserDao userDao, PetFoodDao petFoodDao, Clock clock) {
         this.petDao = petDao;
         this.roomDao = roomDao;
         this.levelDao = levelDao;
         this.userDao = userDao;
+        this.petFoodDao = petFoodDao;
         this.clock = clock;
     }
 
@@ -65,6 +65,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
+    @Transactional(rollbackFor = ServiceException.class)
     public void drink(Integer userId, DrinkRequest request) throws ServiceException {
         Pet pet = petDao.findByIdWithDrinksAndJournalEntriesAndAchievements(request.petId()).orElseThrow();
         Map<DrinkId, PetDrink> drinks = pet.getDrinks();
@@ -89,6 +91,45 @@ public class PetServiceImpl implements PetService {
             addAchievementIfNot(pet, AchievementId.DRINK_10);
         if (pet.getDrinkCount() == 100)
             addAchievementIfNot(pet, AchievementId.DRINK_100);
+
+        addExperience(pet, 1);
+    }
+
+    @Override
+    @PreAuthorize("hasRole('USER')")
+    @Transactional(rollbackFor = ServiceException.class)
+    public void satiety(Integer userId, SatietyRequest request) throws ServiceException {
+        Pet pet = petDao.findByIdWithFoodsJournalEntriesAndAchievements(request.petId()).orElseThrow();
+        PetFood food = petFoodDao.findByPetIdAndFoodType(pet.getId(), request.foodId()).orElseThrow();
+
+        if (food == null) {
+            throw new ServiceException("Food count = 0.");
+        } else {
+            if (food.getFoodCount() == 0) {
+                throw new ServiceException("Food count = 0.");
+            }
+            food.setFoodCount(food.getFoodCount() - 1);
+        }
+
+        pet.setSatiety(100);
+
+        if (pet.getJournalEntries().get(JournalEntryId.BUILD_BOOKCASE) == null) {
+            PetJournalEntry newPetJournalEntry = new PetJournalEntry();
+            newPetJournalEntry.setCreatedAt(OffsetDateTime.now(clock));
+            newPetJournalEntry.setPet(pet);
+            newPetJournalEntry.setJournalEntry(JournalEntryId.BUILD_BOOKCASE);
+            newPetJournalEntry.setReaded(false);
+            pet.getJournalEntries().put(newPetJournalEntry.getJournalEntry(), newPetJournalEntry);
+        }
+
+        if (pet.getEatCount() < Integer.MAX_VALUE)
+            pet.setEatCount(pet.getEatCount() + 1);
+        if (pet.getEatCount() == 1)
+            addAchievementIfNot(pet, AchievementId.FEED_1);
+        if (pet.getEatCount() == 10)
+            addAchievementIfNot(pet, AchievementId.FEED_10);
+        if (pet.getEatCount() == 100)
+            addAchievementIfNot(pet, AchievementId.FEED_100);
 
         addExperience(pet, 1);
     }

@@ -68,6 +68,15 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
+    public Optional<Pet> findByIdWithFoodsJournalEntriesAndAchievements(Integer id) {
+        Pet pet = em.find(Pet.class, id, Map.of(
+                "jakarta.persistence.fetchgraph",
+                em.getEntityGraph("pet.foodsAndJournalEntriesAndAchievements")));
+
+        return Optional.ofNullable(pet);
+    }
+
+    @Override
     public void save(Pet pet) {
         em.persist(pet);
     }
