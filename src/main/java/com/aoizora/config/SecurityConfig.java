@@ -23,6 +23,15 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
+    public SecurityFilterChain securityFilterChainSite(HttpSecurity http) throws Exception {
+        return http
+                .securityMatcher("/site/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
+                .build();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChainApi(HttpSecurity http,
                                                       AuthenticationManager authenticationManager,
                                                       AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
