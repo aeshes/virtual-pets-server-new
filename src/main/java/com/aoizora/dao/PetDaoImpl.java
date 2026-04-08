@@ -98,7 +98,7 @@ public class PetDaoImpl implements PetDao {
 
         CriteriaQuery<Pet> cq = cb.createQuery(Pet.class);
         Root<Pet> root = cq.from(Pet.class);
-        cq.select(root).orderBy(cb.desc(root.get("created_date")));
+        cq.select(root).orderBy(cb.desc(root.get("createdDate")));
 
         TypedQuery<Pet> query = em.createQuery(cq);
         query.setFirstResult(start);

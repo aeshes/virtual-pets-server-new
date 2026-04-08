@@ -37,7 +37,7 @@ public class StatisticsController {
         StatisticsDTO params = new StatisticsDTO();
         params.setMaxRecordsCount(100);
         params.setType(LAST_REGISTERED_USERS);
-        model.addAttribute("statisticsParams, params");
+        model.addAttribute("statisticsParams", params);
 
         return "information/statistics";
     }
@@ -47,6 +47,7 @@ public class StatisticsController {
 
         Iterable<LastRegisteredUser> users = new ArrayList<>();
         Iterable<Pet> pets = new ArrayList<>();
+
         if (!statisticsParamsBindingResult.hasErrors()) {
             switch (statisticsParams.getType()) {
                 case LAST_REGISTERED_USERS:
@@ -56,6 +57,8 @@ public class StatisticsController {
                     pets = petService.findLastCreatedPets(0, statisticsParams.getMaxRecordsCount());
             }
         }
+
+        model.addAttribute("statisticsParams", statisticsParams);
         model.addAttribute("users", users);
         model.addAttribute("pets", pets);
 
