@@ -1,8 +1,6 @@
 package com.aoizora.service;
 
-import com.aoizora.api.dto.CreatePetRequest;
-import com.aoizora.api.dto.DrinkRequest;
-import com.aoizora.api.dto.SatietyRequest;
+import com.aoizora.api.dto.*;
 import com.aoizora.dao.*;
 import com.aoizora.dao.domain.*;
 import com.aoizora.service.exception.PetNotFoundException;
@@ -13,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -157,5 +157,26 @@ public class PetServiceImpl implements PetService {
             petAchievement.setAchievement(achievement);
             pet.getAchievements().put(achievement, petAchievement);
         }
+    }
+
+    @Override
+    public PetDetails petInformationPage(Integer id) throws PetNotFoundException {
+        Pet fullPet = petDao.findByIdWithJournalEntriesAndAchievements(id).orElseThrow(PetNotFoundException::new);
+        PetDetails result = new PetDetails();
+        result.setId(fullPet.getId());
+        result.setName(fullPet.getName());
+        result.setLevel(fullPet.getLevel().getId());
+        result.setExperience(fullPet.getExperience());
+        List<AchievementDTO> achievements = new ArrayList<>();
+        result.setAchievements(achievements);
+
+        for (AchievementId achievementId : AchievementId.values()) {
+            AchievementDTO achievement = new AchievementDTO();
+            achievement.setCode(achievementId.name());
+            achievement.setUnlocked(fullPet.getAchievements().containsKey(achievementId));
+            achievements.add(achievement);
+        }
+
+        return result;
     }
 }

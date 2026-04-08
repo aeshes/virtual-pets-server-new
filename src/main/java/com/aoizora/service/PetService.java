@@ -2,9 +2,11 @@ package com.aoizora.service;
 
 import com.aoizora.api.dto.CreatePetRequest;
 import com.aoizora.api.dto.DrinkRequest;
+import com.aoizora.api.dto.PetDetails;
 import com.aoizora.api.dto.SatietyRequest;
 import com.aoizora.dao.domain.AchievementId;
 import com.aoizora.dao.domain.Pet;
+import com.aoizora.service.exception.PetNotFoundException;
 import com.aoizora.service.exception.ServiceException;
 
 public interface PetService {
@@ -14,4 +16,5 @@ public interface PetService {
     void satiety(Integer userId, SatietyRequest request) throws ServiceException;
     void addExperience(Pet pet, Integer exp);
     void addAchievementIfNot(Pet pet, AchievementId achievementId);
+    PetDetails petInformationPage(Integer id) throws PetNotFoundException;
 }

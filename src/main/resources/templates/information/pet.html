@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" th:lang = "${#locale.toLanguageTag()}">
+    <head>
+        <meta charset = "utf-8">
+        <title>Информация о питомце</title>
+        <link rel = "stylesheet" href = "/css/style.css" type = "text/css" media = "screen" />
+    </head>
+    <body>
+        <div th:replace = "~{fragments/header :: header}"></div>
+        <div th:replace = "~{fragments/menu :: menu}"></div>
+        <div class = "body">
+            <div id = "main">
+                <h1 th:text = "#{virtualpets.site.petInfo}"></h1>
+                <p th:text = "#{virtualpets.site.petName} + ${': ' + pet.name}"></p>
+                <p th:text = "#{virtualpets.site.petLevel} + ${': ' + pet.level}"></p>
+                <p th:text = "#{virtualpets.site.petExperience} + ${': ' + (pet.experience == null ? 0 : pet.experience)}"></p>
+                <h1 th:text = "#{virtualpets.site.achievements}"></h1>
+                <div  th:each = "info : ${pet.achievements}">
+                    <div class = "achievement-unlocked" th:if = "${info.unlocked}">
+                        <p th:text = "#{virtualpets.achievement.__${info.code}__}"></p>
+                        <p th:text = "#{virtualpets.achievement.__${info.code}___DESCRIPTION}"></p>
+                    </div>
+                    <div class = "achievement-locked" th:if = "${!info.unlocked}">
+                        <p th:text = "#{virtualpets.achievement.__${info.code}__}"></p>
+                        <p th:text = "#{virtualpets.achievement.__${info.code}___DESCRIPTION}"></p>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div th:replace = "~{fragments/footer :: footer}"></div>
+    </body>
+</html>
