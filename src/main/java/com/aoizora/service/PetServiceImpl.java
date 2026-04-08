@@ -179,4 +179,9 @@ public class PetServiceImpl implements PetService {
 
         return result;
     }
+
+    @Override
+    public Iterable<Pet> findLastCreatedPets(int start, int limit) {
+        return petDao.findLastCreatedPets(start, limit);
+    }
 }

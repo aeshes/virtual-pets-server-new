@@ -17,4 +17,5 @@ public interface PetService {
     void addExperience(Pet pet, Integer exp);
     void addAchievementIfNot(Pet pet, AchievementId achievementId);
     PetDetails petInformationPage(Integer id) throws PetNotFoundException;
+    Iterable<Pet> findLastCreatedPets(int start, int limit);
 }

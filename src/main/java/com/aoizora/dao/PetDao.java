@@ -1,6 +1,7 @@
 package com.aoizora.dao;
 
 import com.aoizora.dao.domain.Pet;
+import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
@@ -20,4 +21,6 @@ public interface PetDao {
     void save(Pet pet);
 
     void delete(Pet pet);
+
+    Page<Pet> findLastCreatedPets(int start, int limit);
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:sec = "http://www.thymeleaf.org/extras/spring-security" th:lang = "${#locale.toLanguageTag()}">
+    <head>
+        <meta charset = "utf-8">
+        <title th:text = "#{virtualpets.site.title}"></title>
+        <link rel = "stylesheet" href = "/css/style.css" type = "text/css" media = "screen" />
+    </head>
+    <body>
+        <div th:replace = "~{fragments/header :: header}"></div>
+        <div th:replace = "~{fragments/menu :: menu}"></div>
+        <div class = "body">
+            <div id = "main">
+                <H1 th:text = "${statistics_var}"></H1>
+                <form th:object = "${statisticsParams}" method = "post">
+                    <div style = "width: 300px;" class = "form">
+                        <div style = "width: 100px; display: inline;" th:text = "#{virtualpets.site.recordsInPage}"></div>
+                        <div style = "width: 200px; display: inline; margin-right: auto;">
+                            <input th:field = "*{maxRecordsCount}" />
+                        </div>
+                        <div style = "width: 300px;">
+                            <p th:if = "${#fields.hasErrors('maxRecordsCount')}" th:errors = "*{maxRecordsCount}">Incorrect value</p>
+                        </div>
+                        <div style = "width: 100px; display: inline;" th:text = "#{virtualpets.site.statisticsType}"></div>
+                        <div style = "width: 200px; display: inline; margin-right: auto;">
+                            <select th:field = "*{type}" size = "1">
+                                <option th:value = "LAST_REGISTERED_USERS" th:text = "#{virtualpets.site.lastRegisteredUsers}"></option>
+                                <option th:value = "LAST_CREATED_PETS" th:text = "#{virtualpets.site.lastCreatedPets}"></option>
+                            </select>
+                        </div>
+                        <div style = "width: 300px;">
+                            <p th:if = "${#fields.hasErrors('type')}" th:errors = "*{type}">Incorrect type</p>
+                        </div>
+                        <div style = "width: 300px;">
+                            <input type = "hidden" th:name = "${_csrf.parameterName}" th:value = "${_csrf.token}"/>
+                        </div>
+                        <div style = "width: 300px; display: inline; margin-left: auto;">
+                            <input type = "submit" th:value = "#{virtualpets.site.showStatistics}" />
+                        </div>
+                    </div>
+                </form>
+                <table th:if = "${not #lists.isEmpty(users)}">
+                    <caption th:text= "#{virtualpets.site.lastRegisteredUsers}"></caption>
+                    <thead>
+                        <tr>
+                            <th th:text = "#{virtualpets.site.registrationDate}"></th>
+                            <th th:text = "#{virtualpets.site.name}"></th>
+                            <th th:text = "#{virtualpets.site.petsCount}"></th>
+                            <th sec:authorize-url = "@{/site/admin/user}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each = "user : ${users}">
+                            <td th:text = "${user.registrationDate}"></td>
+                            <td th:text = "${user.name}"></td>
+                            <td th:text = "${user.petsCount}"></td>
+                            <td sec:authorize-url = "@{/site/admin/user}">
+                                <a th:href = "@{/site/admin/user/{userId}(userId=${user.id})}" th:text = "#{virtualpets.site.changeUserAccess}"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table th:if = "${not #lists.isEmpty(pets)}">
+                    <tr th:each = "pet : ${pets}">
+                        <td th:text = "${pet.createdDate}"></td>
+                        <td>
+                            <a th:href = "@{/site/information/pet(id=${pet.id})}" th:text = "${pet.name}"></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div th:replace = "~{fragments/footer :: footer}"></div>
+    </body>
+</html>
