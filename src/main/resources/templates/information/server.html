@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" th:lang = "${#locale.toLanguageTag()}">
+    <head>
+        <meta charset = "utf-8">
+        <link rel = "stylesheet" href = "/css/style.css" type = "text/css" media = "screen" />
+    </head>
+    <body>
+        <div th:replace = "~{fragments/header :: header}"></div>
+        <div th:replace = "~{fragments/menu :: menu}"></div>
+        <div class = "body">
+            <div id = "main">
+                <h1 th:text = "#{virtualpets.server.about}"></h1>
+                <table>
+                    <caption th:text = "${serverInfo}"></caption>
+                    <tr th:each = "info : ${infos}">
+                        <td th:text = "${info.key}"></td>
+                        <td th:text = "${info.value}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div th:replace = "~{fragments/footer :: footer}"></div>
+    </body>
+</html>

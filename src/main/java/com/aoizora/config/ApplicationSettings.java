@@ -25,6 +25,7 @@ public class ApplicationSettings {
 
     public static class Server {
         private String url;
+        private String about;
 
         public String getUrl() {
             return url;
@@ -32,6 +33,14 @@ public class ApplicationSettings {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        public String getAbout() {
+            return about;
+        }
+
+        public void setAbout(String about) {
+            this.about = about;
         }
     }
 
