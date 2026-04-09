@@ -26,7 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChainSite(HttpSecurity http) throws Exception {
         return http
                 .securityMatcher("/site/**")
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
                 .build();
     }
