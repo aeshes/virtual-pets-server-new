@@ -1,5 +1,6 @@
 package com.aoizora.service;
 
+import com.aoizora.api.dto.LoginRequest;
 import com.aoizora.api.dto.RegistrationRequest;
 import com.aoizora.api.dto.ServerInfoDTO;
 import com.aoizora.config.ApplicationSettings;
@@ -73,5 +74,13 @@ public class PublicServiceImpl implements PublicService {
         user.setRoles(Role.USER.name());
         user.setEnabled(true);
         userDao.save(user);
+    }
+
+    @Override
+    public void login(LoginRequest request) throws ServiceException {
+        String clientVersion = request.version();
+        if (!properties.getVersion().equals(clientVersion)) {
+            throw new IncompatibleVersionException("", properties.getVersion(), clientVersion);
+        }
     }
 }
