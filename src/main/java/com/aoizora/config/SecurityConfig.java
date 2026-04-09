@@ -28,6 +28,16 @@ public class SecurityConfig {
                 .securityMatcher("/site/**")
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
+                .formLogin((formLogin) ->
+                        formLogin.loginPage("/site/login")
+                                .loginProcessingUrl("/site/login")
+                                .defaultSuccessUrl("/site/user/profile")
+                                .failureUrl("/site/login?error=1")
+                )
+                .logout((logout) ->
+                        logout.logoutUrl("/site/logout")
+                                .logoutSuccessUrl("/site/login?logout=1")
+                )
                 .build();
     }
 
