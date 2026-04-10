@@ -381,9 +381,68 @@
 
 .logout-section {
     margin-top: 1rem;
-    text-align: right;
+    text-align: left;
 }
 
 .logout-form {
     display: inline-block;
+}
+
+/* Карточка выхода */
+
+/* Карточка выхода */
+.logout-section {
+    margin-top: 1rem;
+}
+
+.logout-card {
+    background: linear-gradient(135deg, #faf8f4 0%, #f5f2ec 100%);
+    border-radius: 20px;
+    padding: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.logout-card:hover {
+    transform: translateX(5px);
+    border-color: var(--pet-peach);
+}
+
+.logout-icon-large {
+    font-size: 2rem;
+}
+
+.logout-content {
+    flex: 1;
+}
+
+.logout-content p {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.logout-btn {
+    background: #f0e8e0;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #8b6b4a;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+}
+
+.logout-btn:hover {
+    background: #ffd8be;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
