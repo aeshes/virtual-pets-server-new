@@ -13,31 +13,85 @@
             Меню сайта
         </div>
         <div class = "body">
-            <div id = "main">
-                <div>
-                    ID: <span sec:authentication = "principal.userId"></span>
+            <div id = "main" class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <span class="pet-avatar">🐕</span>
+                    </div>
+                    <div class="profile-title">
+                        <h2 th:text="#{virtualpets.site.profile}">Профиль пользователя</h2>
+                        <p class="profile-subtitle">Ваш игровой аккаунт</p>
+                    </div>
                 </div>
-                <div>
-                    <th:block th:text ="#{virtualpets.site.username}"></th:block>:
-                    <span sec:authentication = "principal.username"></span>
+                <div class="profile-info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">🆔</div>
+                        <div class="info-content">
+                            <label>ID</label>
+                            <span class="info-value" sec:authentication="principal.userId"></span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">👤</div>
+                        <div class="info-content">
+                            <label th:text="#{virtualpets.site.username}">Имя пользователя</label>
+                            <span class="info-value" sec:authentication="principal.username"></span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">🏷️</div>
+                        <div class="info-content">
+                            <label th:text="#{virtualpets.site.name}">Отображаемое имя</label>
+                            <span class="info-value" sec:authentication="principal.name"></span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">⭐</div>
+                        <div class="info-content">
+                            <label>Уровень</label>
+                            <span class="info-value">0 уровень</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">🐾</div>
+                        <div class="info-content">
+                            <label>Питомцев</label>
+                            <span class="info-value">0</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">🏆</div>
+                        <div class="info-content">
+                            <label>Достижений</label>
+                            <span class="info-value">0</span>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <th:block th:text ="#{virtualpets.site.name}"></th:block>:
-                    <span sec:authentication = "principal.name"></span>
+
+                <div sec:authorize="hasRole('ADMIN')" class="admin-section">
+                    <div class="admin-card">
+                        <span class="admin-icon">👑</span>
+                        <div class="admin-content">
+                            <h4>Админ-панель</h4>
+                            <p>Управление пользователями и питомцами</p>
+                        </div>
+                        <a th:href="@{/site/admin}" class="admin-btn" th:text="#{virtualpets.site.adminPanel}">Перейти в админ-панель</a>
+                    </div>
                 </div>
-                <div sec:authorize = "hasRole('ADMIN')">
-                    <a th:href = "@{/site/admin}" th:text = "#{virtualpets.site.adminPanel}"></a>
-                </div>
-                <div>
-                    <form method = "POST" th:action = "@{/site/logout}">
-                        <input type = "hidden"
-                               th:name = "${_csrf.parameterName}"
-                               th:value = "${_csrf.token}"/>
-                        <input type = "submit" th:value = "#{virtualpets.site.logout}" />
+
+                <div class="logout-section">
+                    <form method="POST" th:action="@{/site/logout}" class="logout-form">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="logout-btn">
+                            <span class="logout-icon">🚪</span>
+                            <span th:text="#{virtualpets.site.logout}">Выйти</span>
+                        </button>
                     </form>
-                </div>
-                <div>
-                    USER PROFILE
                 </div>
             </div>
         </div>
