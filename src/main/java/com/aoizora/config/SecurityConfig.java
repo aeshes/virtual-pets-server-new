@@ -27,11 +27,14 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChainSite(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChainSite(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         return http
                 .securityMatcher("/site/**")
-                .csrf(Customizer.withDefaults())
-                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
+                .authenticationManager(authenticationManager)
+                .authorizeHttpRequests((authorize) ->
+                        authorize.requestMatchers("/site/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/site/user/**").hasRole("USER")
+                                .requestMatchers("/site/**").permitAll())
                 .formLogin((formLogin) ->
                         formLogin.loginPage("/site/login")
                                 .loginProcessingUrl("/site/login")
@@ -42,6 +45,7 @@ public class SecurityConfig {
                         logout.logoutUrl("/site/logout")
                                 .logoutSuccessUrl("/site/login?logout=1")
                 )
+                .csrf(Customizer.withDefaults())
                 .build();
     }
 
