@@ -2,7 +2,7 @@
 <html xmlns:th = "http://www.thymeleaf.org" th:lang = "${#locale.toLanguageTag()}">
     <head>
         <title>Home</title>
-        <link rel = "stylesheet" th:href = "@{css/style.css}" type = "text/css" media = "screen" />
+        <link rel = "stylesheet" th:href = "@{/css/style.css}" type = "text/css" media = "screen" />
     </head>
     <body>
         <div th:replace = "~{fragments/header :: header}">
