@@ -337,6 +337,17 @@ body {
     animation: fadeInUp 0.3s ease-out;
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .form-message.success {
     background: linear-gradient(135deg, #e5f5e8 0%, #d4f0dc 100%);
     color: #5cb85c;
