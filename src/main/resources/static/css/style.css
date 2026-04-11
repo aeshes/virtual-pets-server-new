@@ -183,28 +183,6 @@ body {
     content: " 🐾";
 }
 
-/* Стили для ошибок/уведомлений (на будущее) */
-.alert-success {
-    background: var(--success);
-    color: white;
-    padding: 0.75rem;
-    border-radius: 16px;
-}
-
-.alert-warning {
-    background: var(--warning);
-    color: #8b6b3a;
-    padding: 0.75rem;
-    border-radius: 16px;
-}
-
-.error {
-    background: linear-gradient(135deg, #ffe5e5 0%, #ffd6d6 100%);
-    color: #d9534f;
-    border: 2px solid #ffb8b8;
-    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.2);
-}
-
 /* ===== ДОМАШНЯЯ СТРАНИЦА ===== */
 
 .home-container {
