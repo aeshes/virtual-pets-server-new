@@ -356,15 +356,6 @@ body {
     color: white;
 }
 
-.logout-section {
-    margin-top: 1rem;
-    text-align: right;
-}
-
-.logout-form {
-    display: inline-block;
-}
-
 .logout-btn {
     background: #f0e8e0;
     border: none;
@@ -389,11 +380,6 @@ body {
 
 .logout-icon {
     font-size: 1.1rem;
-}
-
-.logout-section {
-    margin-top: 1rem;
-    text-align: left;
 }
 
 .logout-form {
