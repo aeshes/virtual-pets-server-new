@@ -1,25 +1,143 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org" th:lang = "${#locale.toLanguageTag()}">
-    <head>
-        <title>Home</title>
-        <link rel = "stylesheet" th:href = "@{/css/style.css}" type = "text/css" media = "screen" />
-    </head>
-    <body>
-        <div th:replace = "~{fragments/header :: header}">
-            Шапка сайта
-        </div>
-        <div th:replace = "~{fragments/menu :: menu}">
-            Меню сайта
-        </div>
-        <div class = "body">
-            <div id = "main">
-                <th:block th:utext = "#{virtualpets.welcome}">
-                    <p>Текст приветственного сообщения</p>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.toLanguageTag()}">
+<head>
+    <meta charset="utf-8">
+    <title th:text="#{virtualpets.site.home}">Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="screen" />
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">Шапка сайта</div>
+<div th:replace="~{fragments/menu :: menu}">Меню сайта</div>
+
+<div class="body">
+    <div id="main" class="home-container">
+        <div class="welcome-section">
+            <div class="welcome-mascot">
+                <span class="welcome-pet">🐕</span>
+                <span class="welcome-pet">🐈</span>
+                <span class="welcome-pet">🐰</span>
+            </div>
+            <div class="welcome-content">
+                <th:block th:utext="#{virtualpets.welcome}">
+                    <h1>Добро пожаловать в мир виртуальных питомцев!</h1>
+                    <p>Заботьтесь о своих питомцах, играйте с ними и развивайте их вместе с нами.</p>
+                    <p>Присоединяйтесь к нашему дружному сообществу!</p>
                 </th:block>
             </div>
         </div>
-        <div th:replace = "~{fragments/footer :: footer}">
-            Подвал сайта
+
+        <div class="registration-section">
+            <div class="registration-header">
+                <h3>📝 Регистрация нового пользователя</h3>
+                <p>Создайте аккаунт и заведите своего первого питомца!</p>
+            </div>
+
+            <div th:if="${param.error != null}" class="form-message error" style="display: block;">
+                <span>❌</span>
+                <span th:text="${param.errorMessage != null ? param.errorMessage : 'Ошибка регистрации. Попробуйте снова.'}"></span>
+            </div>
+
+            <div th:if="${param.success != null}" class="form-message success" style="display: block;">
+                <span>✅</span>
+                <span>
+                    <span th:text="${param.successMessage != null ? param.successMessage : 'Регистрация успешна! Теперь вы можете'}"></span>
+                    <a th:href="@{/site/login}" class="success-link">войти в систему</a>
+                    <span>.</span>
+                </span>
+            </div>
+
+            <form id="registrationForm" class="registration-form" method="post" th:action="@{/site/register}">
+                <div class="form-group">
+                    <label for="login">
+                        <span class="form-icon">👤</span>
+                        <th:block th:text="#{virtualpets.site.username}">Логин</th:block>
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text"
+                           id="login"
+                           name="login"
+                           class="form-input"
+                           placeholder="от 3 до 50 символов"
+                           minlength="3"
+                           maxlength="50"
+                           required />
+                    <div class="form-error" th:if="${param.loginError != null}" th:text="${param.loginError}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">
+                        <span class="form-icon">🏷️</span>
+                        <th:block th:text="#{virtualpets.site.name}">Отображаемое имя</th:block>
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text"
+                           id="name"
+                           name="name"
+                           class="form-input"
+                           placeholder="как вас называть"
+                           minlength="3"
+                           maxlength="50"
+                           required />
+                    <div class="form-error" th:if="${param.nameError != null}" th:text="${param.nameError}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <span class="form-icon">📧</span>
+                        Email
+                        <span class="required">*</span>
+                    </label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           class="form-input"
+                           placeholder="your@email.com"
+                           minlength="3"
+                           maxlength="50"
+                           required />
+                    <div class="form-error" th:if="${param.emailError != null}" th:text="${param.emailError}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <span class="form-icon">🔒</span>
+                        <th:block th:text="#{virtualpets.site.password}">Пароль</th:block>
+                        <span class="required">*</span>
+                    </label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           class="form-input"
+                           placeholder="от 3 до 50 символов"
+                           minlength="3"
+                           maxlength="50"
+                           required />
+                    <div class="form-error" th:if="${param.passwordError != null}" th:text="${param.passwordError}"></div>
+                </div>
+
+                <input type="hidden" id="version" name="version" value="0.1" />
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <div class="form-actions">
+                    <button type="submit" class="register-btn">
+                        <span class="btn-icon">🎮</span>
+                        <span>Зарегистрироваться</span>
+                    </button>
+                    <button type="reset" class="reset-btn">
+                        <span class="btn-icon">🔄</span>
+                        <span>Очистить</span>
+                    </button>
+                </div>
+
+                <div class="login-link">
+                    <p>Уже есть аккаунт? <a th:href="@{/site/login}">Войдите в систему</a></p>
+                </div>
+            </form>
         </div>
-    </body>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">Подвал сайта</div>
+</body>
 </html>
