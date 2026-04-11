@@ -1,0 +1,61 @@
+/* Базовые стили */
+
+@import 'base/variables.css';
+@import 'base/reset.css';
+@import 'base/animations.css';
+
+/* Компоновка */
+
+@import 'layouts/layout.css';
+@import 'layouts/header.css';
+@import 'layouts/menu.css';
+@import 'layouts/footer.css';
+
+/* Компоненты */
+
+@import 'components/buttons.css';
+@import 'components/forms.css';
+@import 'components/messages.css';
+@import 'components/cards.css';
+
+/* Страницы */
+
+@import 'pages/home.css';
+@import 'pages/profile.css';
+
+/* АДАПТИВНОСТЬ */
+
+@media (max-width: 768px) {
+    .welcome-section {
+        padding: 1.5rem;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-content p {
+        font-size: 1rem;
+    }
+
+    .registration-section {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .welcome-pet {
+        font-size: 2rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+}

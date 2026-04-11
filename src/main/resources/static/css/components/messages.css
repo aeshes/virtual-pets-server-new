@@ -1,0 +1,52 @@
+/* Сообщения об ошибках */
+
+.form-error {
+    color: #d9534f;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    margin-left: 1rem;
+    animation: shakeError 0.3s ease-in-out;
+}
+
+/* Сообщения формы */
+
+.form-message {
+    padding: 0.8rem 1rem;
+    border-radius: 60px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    display: none;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.form-message.success {
+    background: linear-gradient(135deg, #e5f5e8 0%, #d4f0dc 100%);
+    color: #5cb85c;
+    border: 2px solid #a8e0b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.form-message.error {
+    background: linear-gradient(135deg, #ffe5e5 0%, #ffd6d6 100%);
+    color: #d9534f;
+    border: 2px solid #ffb8b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.success-link {
+    color: #5cb85c;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.success-link:hover {
+    color: #4cae4c;
+    text-decoration: none;
+}

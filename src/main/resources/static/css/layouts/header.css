@@ -1,0 +1,26 @@
+.header {
+    background: linear-gradient(120deg, var(--pet-blue) 0%, #b8d9f0 100%);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: "🐕 🐈";
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    font-size: 28px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: -0.5px;
+}

@@ -1,0 +1,25 @@
+:root {
+    --bg-primary: #f9f7f3;
+    --bg-card: #ffffff;
+    --bg-menu: #ffffffcc;
+
+    --pet-pink: #ffb7b2;
+    --pet-blue: #a0d2eb;
+    --pet-mint: #c5e0d4;
+    --pet-lavender: #e0d3ff;
+    --pet-peach: #ffd8be;
+
+    --primary: #6c9ebf;
+    --primary-dark: #4a7c9c;
+    --success: #8fc9a5;
+    --warning: #f7c56e;
+    --text-dark: #4a4a4a;
+    --text-light: #7a7a7a;
+    --border-light: #f0ede8;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+    --transition: all 0.2s ease;
+}
